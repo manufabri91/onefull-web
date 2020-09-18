@@ -22,8 +22,7 @@ function Copyright() {
       <Link color="inherit" href="https://material-ui.com/">
         Your Website
       </Link>{' '}
-      {new Date().getFullYear()}
-      {'.'}
+      {new Date().getFullYear()}.
     </Typography>
   );
 }
@@ -53,7 +52,9 @@ const useStyles = makeStyles((theme) => ({
   },
   cardHeader: {
     backgroundColor:
-      theme.palette.type === 'light' ? theme.palette.grey[200] : theme.palette.grey[700],
+      theme.palette.type === 'light'
+        ? theme.palette.grey[200]
+        : theme.palette.grey[700],
   },
   cardPricing: {
     display: 'flex',
@@ -77,7 +78,12 @@ const tiers = [
   {
     title: 'Free',
     price: '0',
-    description: ['10 users included', '2 GB of storage', 'Help center access', 'Email support'],
+    description: [
+      '10 users included',
+      '2 GB of storage',
+      'Help center access',
+      'Email support',
+    ],
     buttonText: 'Sign up for free',
     buttonVariant: 'outlined',
   },
@@ -114,11 +120,22 @@ const footers = [
   },
   {
     title: 'Features',
-    description: ['Cool stuff', 'Random feature', 'Team feature', 'Developer stuff', 'Another one'],
+    description: [
+      'Cool stuff',
+      'Random feature',
+      'Team feature',
+      'Developer stuff',
+      'Another one',
+    ],
   },
   {
     title: 'Resources',
-    description: ['Resource', 'Resource name', 'Another resource', 'Final resource'],
+    description: [
+      'Resource',
+      'Resource name',
+      'Another resource',
+      'Final resource',
+    ],
   },
   {
     title: 'Legal',
@@ -130,14 +147,26 @@ export default function Planes() {
   const classes = useStyles();
 
   return (
-    <React.Fragment>
+    <>
       {/* Hero unit */}
       <Container maxWidth="sm" component="main" className={classes.heroContent}>
-        <Typography component="h1" variant="h2" align="center" color="textPrimary" gutterBottom>
+        <Typography
+          component="h1"
+          variant="h2"
+          align="center"
+          color="textPrimary"
+          gutterBottom
+        >
           Planes destacados
         </Typography>
-        <Typography variant="h5" align="center" color="textSecondary" component="p">
-          Estas son las mejores ofertas disponibles para disfrutar todo el contenido.
+        <Typography
+          variant="h5"
+          align="center"
+          color="textSecondary"
+          component="p"
+        >
+          Estas son las mejores ofertas disponibles para disfrutar todo el
+          contenido.
         </Typography>
       </Container>
       {/* End hero unit */}
@@ -145,7 +174,13 @@ export default function Planes() {
         <Grid container spacing={5} alignItems="flex-end">
           {tiers.map((tier) => (
             // Enterprise card is full width at sm breakpoint
-            <Grid item key={tier.title} xs={12} sm={tier.title === 'Enterprise' ? 12 : 6} md={4}>
+            <Grid
+              item
+              key={tier.title}
+              xs={12}
+              sm={tier.title === 'Enterprise' ? 12 : 6}
+              md={4}
+            >
               <Card>
                 <CardHeader
                   title={tier.title}
@@ -166,14 +201,23 @@ export default function Planes() {
                   </div>
                   <ul>
                     {tier.description.map((line) => (
-                      <Typography component="li" variant="subtitle1" align="center" key={line}>
+                      <Typography
+                        component="li"
+                        variant="subtitle1"
+                        align="center"
+                        key={line}
+                      >
                         {line}
                       </Typography>
                     ))}
                   </ul>
                 </CardContent>
                 <CardActions>
-                  <Button fullWidth variant={tier.buttonVariant} color="primary">
+                  <Button
+                    fullWidth
+                    variant={tier.buttonVariant}
+                    color="primary"
+                  >
                     {tier.buttonText}
                   </Button>
                 </CardActions>
@@ -182,6 +226,6 @@ export default function Planes() {
           ))}
         </Grid>
       </Container>
-    </React.Fragment>
+    </>
   );
 }
