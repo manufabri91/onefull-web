@@ -1,0 +1,16 @@
+@import '../../assets/styles/colors';
+
+@media only screen and (max-width: 600px) {
+    .carrusel-item {
+        height: 30vh;
+        background-color: rgba($color: black, $alpha: .2);
+    }
+    .carousel-caption {
+        .MuiTypography-h3 {
+            font-size: 1rem;
+        }
+        .MuiButton-root {
+            font-size: 0.75rem;
+        }
+    }
+}

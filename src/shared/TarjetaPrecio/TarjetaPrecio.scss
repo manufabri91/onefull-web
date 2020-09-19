@@ -1,0 +1,26 @@
+@import "../../assets/styles/colors";
+.card {
+  height: 100%;
+    display: flex;
+    justify-content: space-between;
+    .header {
+        background-color: lightgrey;
+    }
+    .content {
+        .pricing {
+            display: flex;
+            justify-content: center;
+            align-items: baseline;
+            margin-bottom: 1rem;
+        }
+        
+        .feature-icon {
+          color: $azulOne;
+        }
+    }
+}
+ul {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}

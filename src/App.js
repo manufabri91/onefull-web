@@ -1,12 +1,10 @@
-import React from "react";
-import "./App.scss";
-import Navbar from "react-bootstrap/Navbar";
-import Nav from "react-bootstrap/Nav";
-import { Router } from "@reach/router";
-import logo from "./logo.svg";
-import Landing from "./components/Landing/Landing";
-import Planes from "./components/Planes/Planes";
-import Beneficios from "./components/Beneficios/Beneficios";
+import React from 'react';
+import logo from './logo.svg';
+import './App.scss';
+import { Router } from '@reach/router';
+import Navbar from 'react-bootstrap/Navbar';
+import Nav from 'react-bootstrap/Nav';
+import Landing from './pages/Landing/Landing';
 
 function App() {
   return (
@@ -32,12 +30,8 @@ function App() {
 
       <Router>
         <Landing path="/" />
-        <Beneficios path="/beneficios" />
-        <Planes path="/planes" />
       </Router>
-      
     </div>
-    
   );
 }
 

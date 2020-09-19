@@ -1,0 +1,21 @@
+.landing {
+    .abonos {
+        padding-top: 4rem;
+        .tarjetas-precios {
+            display: flex;
+            padding: 1rem;
+        }
+    }
+}
+
+@media only screen and (min-width: 600px) {
+    .landing {
+        .abonos {
+            padding-top: 4rem;
+            .tarjetas-precios {
+                display: flex;
+                padding: 1rem;
+            }
+        }
+    }
+}
