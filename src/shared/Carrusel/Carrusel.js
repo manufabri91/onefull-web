@@ -6,31 +6,29 @@ import { Carousel } from "react-bootstrap";
 
 function Carrusel(props) {
   return (
-    <Carousel className="carrusel">
+    <Carousel indicators={false} hover={false} className="carrusel">
       {
         props.items.map((item, i) => (
           <Carousel.Item key={`item_${i}`} >
-            <div className="carrusel-item" >
+            <div className={`carrusel-item ${item.type}`} >
               <img
                 className="carrusel-image d-block w-100"
                 src={item.imageUrl}
                 alt={item.altText}
               />
             </div>
-            <Carousel.Caption>
-              {
+            {
                 item.type === 'button' ?
-                  <>
-                    <Typography variant="h3" color="secondary">{item.title}</Typography>
-                    <Button variant="contained" color="primary">{item.buttonText}</Button>
-                  </>
-                  : <>
-                    <Typography variant="h3" color="textPrimary">{item.title}</Typography>
-                    <Typography variant="h6" color="secondary">{item.subtitle}</Typography>
-                  </>
-
+                <Carousel.Caption className="button-caption">
+                  <Typography variant="h5" color="secondary">{item.title}</Typography>
+                  <Button variant="contained" color="primary">{item.buttonText}</Button>
+                </Carousel.Caption>
+                  : <Carousel.Caption className="text-caption">
+                      <Typography variant="h3" color="textPrimary">{item.title}</Typography>
+                      <Typography variant="h6" color="secondary">{item.subtitle}</Typography>
+                    </Carousel.Caption>
               }
-            </Carousel.Caption>
+            
           </Carousel.Item>
         ))
       }

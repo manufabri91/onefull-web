@@ -1,9 +1,12 @@
+@import '../../assets/styles/colors';
+
 .landing {
     .abonos {
         padding-top: 4rem;
+        color: white;
         .tarjetas-precios {
             display: flex;
-            padding: 1rem;
+            padding: 3rem 1rem;
         }
     }
 }
@@ -14,7 +17,7 @@
             padding-top: 4rem;
             .tarjetas-precios {
                 display: flex;
-                padding: 1rem;
+                padding: 2rem;
             }
         }
     }

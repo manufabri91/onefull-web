@@ -83,20 +83,18 @@ function Landing() {
           component="h3"
           variant="h4"
           align="center"
-          color="textPrimary"
+          color="initial"
           gutterBottom>
             PROMOCIONES DESTACADAS
         </Typography>
         <div className="tarjetas-precios">
-          <Grid container spacing={5}>
+          <Grid container spacing={2}>
             {
               abonos.map((abono, i) => (
-                <>
-                  <TarjetaPrecio
-                    key={`destacado_${i}`}
-                    item={abono}
-                  />
-                </>
+                <TarjetaPrecio
+                  key={`destacado_${i}`}
+                  item={abono}
+                />
               ))
             }
           </Grid>
