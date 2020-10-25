@@ -1,39 +1,25 @@
 import React from 'react';
 import './Carrusel.scss';
-import { Typography, Button } from '@material-ui/core';
-import { Carousel } from "react-bootstrap";
+import Logo from '../../logo.svg';
+import { styled, Typography } from '@material-ui/core';
 
+const MyTypography = styled(Typography)({
+  fontWeight: 700,
+  opacity: 1,
+  color: '#bab3b0',
+});
 
-function Carrusel(props) {
+const Carrusel = () => {
   return (
-    <Carousel indicators={false} hover={false} className="carrusel">
-      {
-        props.items.map((item, i) => (
-          <Carousel.Item key={`item_${i}`} >
-            <div className={`carrusel-item ${item.type}`} >
-              <img
-                className="carrusel-image d-block w-100"
-                src={item.imageUrl}
-                alt={item.altText}
-              />
-            </div>
-            {
-                item.type === 'button' ?
-                <Carousel.Caption className="button-caption">
-                  <Typography variant="h5" color="secondary">{item.title}</Typography>
-                  <Button variant="contained" color="primary">{item.buttonText}</Button>
-                </Carousel.Caption>
-                  : <Carousel.Caption className="text-caption">
-                      <Typography variant="h3" color="textPrimary">{item.title}</Typography>
-                      <Typography variant="h6" color="secondary">{item.subtitle}</Typography>
-                    </Carousel.Caption>
-              }
-            
-          </Carousel.Item>
-        ))
-      }
-    </Carousel>
+    <section className='landing-hero'>
+      <div className='content'>
+        <MyTypography variant='h2'>Estamos con vos, somos uno</MyTypography>
+        <MyTypography variant='h1'>
+          Somos <img src={Logo} alt='One Full' style={{ height: '15rem' }} />
+        </MyTypography>
+      </div>
+    </section>
   );
-}
+};
 
 export default Carrusel;
