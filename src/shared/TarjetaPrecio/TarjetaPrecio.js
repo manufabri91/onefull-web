@@ -11,7 +11,7 @@ import {
 import './TarjetaPrecio.scss';
 import React from 'react';
 
-function TarjetaPrecio({ item }) {
+const TarjetaPrecio = ({ item }) => {
   return (
     <Grid item key={item.title} xs={12} sm={12} md={4}>
       <Card className='card'>
@@ -58,6 +58,6 @@ function TarjetaPrecio({ item }) {
       </Card>
     </Grid>
   );
-}
+};
 
 export default TarjetaPrecio;

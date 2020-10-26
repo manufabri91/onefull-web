@@ -1,25 +1,35 @@
-import React, { useState } from 'react';
+import React from 'react';
 import './Landing.scss';
-import Carrusel from '../../shared/Carrusel/Carrusel';
 import TarjetaPrecio from '../../shared/TarjetaPrecio/TarjetaPrecio';
-import { Grid, Typography } from '@material-ui/core';
-import { Spinner } from 'react-bootstrap';
-import useFetchAll from '../../services/useFetchAll';
+import { CircularProgress, Grid, styled, Typography } from '@material-ui/core';
+import Logo from '../../logo.svg';
+import useFetch from '../../services/useFetch';
 
-function Landing() {
-  const { data, loading, error } = useFetchAll(['abonos', 'promos']);
+const Landing = () => {
+  const { data, loading, error } = useFetch('abonos');
+  const HeroTypography = styled(Typography)({
+    fontWeight: 700,
+    opacity: 1,
+    color: '#bab3b0',
+  });
 
-  if (loading) return <Spinner />;
+  if (loading) return <CircularProgress />;
   if (error) throw error;
-
-  const [abonos, promoItems] = data;
 
   return (
     <div className='landing'>
-      <div className='carrusel'>
-        <Carrusel items={promoItems} />
-      </div>
-      <div className='abonos'>
+      <section className='hero'>
+        <article className='content'>
+          <HeroTypography variant='h2'>
+            Estamos con vos, somos uno
+          </HeroTypography>
+          <HeroTypography variant='h1'>
+            Somos
+            <img src={Logo} alt='One Full' style={{ height: '15rem' }} />
+          </HeroTypography>
+        </article>
+      </section>
+      <section className='abonos'>
         <Typography
           component='h3'
           variant='h4'
@@ -30,15 +40,15 @@ function Landing() {
           PROMOCIONES DESTACADAS
         </Typography>
         <div className='tarjetas-precios'>
-          <Grid container spacing={abonos.length}>
-            {abonos.map((abono, i) => (
+          <Grid container spacing={data.length}>
+            {data.map((abono, i) => (
               <TarjetaPrecio key={`destacado_${i}`} item={abono} />
             ))}
           </Grid>
         </div>
-      </div>
+      </section>
     </div>
   );
-}
+};
 
 export default Landing;

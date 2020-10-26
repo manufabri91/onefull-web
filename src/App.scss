@@ -1,26 +1,25 @@
-@import "./assets/styles/colors";
-@import "~bootstrap/dist/css/bootstrap.min.css";
+@import './assets/styles/colors';
 
 body {
-  background: linear-gradient(-45deg, $azulOne, $azulOneDark , $negroOne, $blancoNacre);
+  background: linear-gradient(
+    -45deg,
+    $azulOne,
+    $azulOneDark,
+    $negroOne,
+    $blancoNacre
+  );
   background-size: 400% 400%;
   animation: gradient 8s ease infinite;
 }
 
-// BOOTSTRAP OVERRIDE
-.navbar-light .navbar-nav .nav-link:focus,
-.navbar-light .navbar-nav .nav-link:hover {
-  color: $azulOne;
-}
-
 @keyframes gradient {
   0% {
-      background-position: 0% 50%;
+    background-position: 0% 50%;
   }
   50% {
-      background-position: 100% 50%;
+    background-position: 100% 50%;
   }
   100% {
-      background-position: 0% 50%;
+    background-position: 0% 50%;
   }
 }
