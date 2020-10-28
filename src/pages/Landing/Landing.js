@@ -10,7 +10,8 @@ const Landing = () => {
   const HeroTypography = styled(Typography)({
     fontWeight: 700,
     opacity: 1,
-    color: '#bab3b0',
+    color: '#fff',
+    textTransform: 'uppercase',
   });
 
   if (loading) return <CircularProgress />;
@@ -20,13 +21,11 @@ const Landing = () => {
     <div className='landing'>
       <section className='hero'>
         <article className='content'>
-          <HeroTypography variant='h2'>
+          <HeroTypography variant='h3'>
             Estamos con vos, somos uno
           </HeroTypography>
-          <HeroTypography variant='h1'>
-            Somos
-            <img src={Logo} alt='One Full' style={{ height: '15rem' }} />
-          </HeroTypography>
+          <HeroTypography variant='h1'>Somos</HeroTypography>
+          <img src={Logo} alt='One Full' style={{ height: '15rem' }} />
         </article>
       </section>
       <section className='abonos'>

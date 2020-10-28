@@ -34,7 +34,7 @@ const App = () => {
       <ThemeProvider theme={theme}>
         <div className='App'>
           <nav className={classes.root}>
-            <AppBar position='fixed'>
+            <AppBar color='error' position='fixed'>
               <Toolbar>
                 <Link to='/' className={classes.logo}>
                   <img
@@ -45,10 +45,10 @@ const App = () => {
                     alt='ONE Full logo'
                   />
                 </Link>
-                <Button className={classes.menuButton} color='secondary'>
+                <Button className={classes.menuButton} color='primary'>
                   Planes
                 </Button>
-                <Button className={classes.menuButton} color='secondary'>
+                <Button className={classes.menuButton} color='primary'>
                   Beneficios
                 </Button>
               </Toolbar>
