@@ -1,109 +1,53 @@
 import React from 'react';
 import './Landing.scss';
-import Carrusel from '../../shared/Carrusel/Carrusel';
 import TarjetaPrecio from '../../shared/TarjetaPrecio/TarjetaPrecio';
-import { Grid, Typography } from '@material-ui/core';
+import { CircularProgress, Grid, styled, Typography } from '@material-ui/core';
+import Logo from '../../logo.svg';
+import useFetch from '../../services/useFetch';
 
-function Landing() {
-  const promoItems = [
-    {
-      type: 'button',
-      imageUrl: require('../../assets/img/familia-online.jpg'),
-      altText: 'Beneficios',
-      title: '#QuedateEnCasa disfrutando nuestros servicios',
-      buttonText: 'Conocé nuestros planes'
-    },
-    {
-      type: 'button',
-      imageUrl: require('../../assets/img/OneVentas.jpg'),
-      altText: 'Ventas',
-      buttonText: 'Contactanos'
-    },
-    {
-      type: 'text',
-      imageUrl: require('../../assets/img/IR.png'),
-      altText: 'Informe Regional',
-      title: '',
-      subtitle: ''
-    },
-    {
-      type: 'text',
-      imageUrl: require('../../assets/img/covid.png'),
-      altText: 'COVID-19',
-      title: '',
-      subtitle: ''
-    },
-  ];
-  const abonos = [
-    {
-      title: 'Abono Básico',
-      subtitle: 'Accedé a nuestros servicios básicos',
-      price: 900,
-      description: [
-        '85 canales',
-        'Atención personalizada',
-        'Soporte técnico 24/7'
-      ],
-      buttonText: '¡Pedilo!'
-    },
-    {
-      title: 'Abono HD',
-      subtitle: 'La mejor calidad de imagen, al mejor precio',
-      price: 1100,
-      description: [
-        '420 canales',
-        '100 canales HD',
-        'Atención personalizada',
-        'Soporte técnico 24/7'
-      ],
-      buttonText: '¡Pedilo!'
-    },
-    {
-      title: 'Abono ONEFull',
-      subtitle: 'La experiencia OneFull Completa',
-      price: 1600,
-      description: [
-        '420 canales',
-        '100 canales HD',
-        'Internet 50Mbps Wi-Fi',
-        'App NoraGO para ver TV en donde quieras',
-        'Atención personalizada',
-        'Soporte técnico 24/7'
-      ],
-      buttonText: '¡Pedilo!'
-    }
-  ]
+const Landing = () => {
+  const { data, loading, error } = useFetch('abonos');
+  const HeroTypography = styled(Typography)({
+    fontWeight: 700,
+    opacity: 1,
+    color: '#fff',
+    textTransform: 'uppercase',
+  });
+
+  if (loading) return <CircularProgress />;
+  if (error) throw error;
+
   return (
-    <div className="landing">
-      <div className="carrusel" >
-        <Carrusel items={promoItems}/>
-      </div>
-      <div className="abonos">
+    <div className='landing'>
+      <section className='hero'>
+        <article className='content'>
+          <HeroTypography variant='h3'>
+            Estamos con vos, somos uno
+          </HeroTypography>
+          <HeroTypography variant='h1'>Somos</HeroTypography>
+          <img src={Logo} alt='One Full' style={{ height: '15rem' }} />
+        </article>
+      </section>
+      <section className='abonos'>
         <Typography
-          component="h3"
-          variant="h4"
-          align="center"
-          color="textPrimary"
-          gutterBottom>
-            PROMOCIONES DESTACADAS
+          component='h3'
+          variant='h4'
+          align='center'
+          color='initial'
+          gutterBottom
+        >
+          PROMOCIONES DESTACADAS
         </Typography>
-        <div className="tarjetas-precios">
-          <Grid container spacing={5}>
-            {
-              abonos.map((abono, i) => (
-                <>
-                  <TarjetaPrecio
-                    key={`destacado_${i}`}
-                    item={abono}
-                  />
-                </>
-              ))
-            }
+        <div className='tarjetas-precios'>
+          <Grid container spacing={data.length}>
+            {data.map((abono, i) => (
+              <TarjetaPrecio key={`destacado_${i}`} item={abono} />
+            ))}
           </Grid>
         </div>
-      </div>
+      </section>
     </div>
   );
-}
+};
 
 export default Landing;

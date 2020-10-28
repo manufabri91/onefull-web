@@ -1,38 +1,67 @@
+import { AppBar, Toolbar } from '@material-ui/core';
+import Button from '@material-ui/core/Button';
+import CssBaseline from '@material-ui/core/CssBaseline';
+import { makeStyles, ThemeProvider } from '@material-ui/core/styles';
+import { Link, Router } from '@reach/router';
 import React from 'react';
-import logo from './logo.svg';
 import './App.scss';
-import { Router } from '@reach/router';
-import Navbar from 'react-bootstrap/Navbar';
-import Nav from 'react-bootstrap/Nav';
+import logo from './logo.svg';
+import Beneficios from './pages/Beneficios/Beneficios';
 import Landing from './pages/Landing/Landing';
+import theme from './theme';
 
-function App() {
+const useStyles = makeStyles((theme) => ({
+  root: {
+    flexGrow: 1,
+  },
+  logo: {
+    marginRight: theme.spacing(5),
+  },
+  menuButton: {
+    marginRight: theme.spacing(2),
+    outline: 0,
+  },
+  title: {
+    flexGrow: 1,
+  },
+}));
+
+const App = () => {
+  const classes = useStyles();
   return (
-    <div className="App">
-      <Navbar bg="light" expand="lg">
-        <Navbar.Brand href="/">
-          <img
-            src={logo}
-            width="120"
-            height="50"
-            className="d-inline-block align-top"
-            alt="ONE Full logo"
-          />
-        </Navbar.Brand>
-        <Navbar.Toggle aria-controls="basic-navbar-nav" />
-        <Navbar.Collapse id="basic-navbar-nav">
-          <Nav className="mr-auto">
-            <Nav.Link href="/beneficios">Beneficios</Nav.Link>
-            <Nav.Link href="/planes">Planes</Nav.Link>
-          </Nav>
-        </Navbar.Collapse>
-      </Navbar>
-
-      <Router>
-        <Landing path="/" />
-      </Router>
-    </div>
+    <>
+      <CssBaseline />
+      <ThemeProvider theme={theme}>
+        <div className='App'>
+          <nav className={classes.root}>
+            <AppBar color='error' position='fixed'>
+              <Toolbar>
+                <Link to='/' className={classes.logo}>
+                  <img
+                    src={logo}
+                    width='120'
+                    height='50'
+                    className='d-inline-block align-top'
+                    alt='ONE Full logo'
+                  />
+                </Link>
+                <Button className={classes.menuButton} color='primary'>
+                  Planes
+                </Button>
+                <Button className={classes.menuButton} color='primary'>
+                  Beneficios
+                </Button>
+              </Toolbar>
+            </AppBar>
+          </nav>
+          <Router>
+            <Landing path='/' />
+            <Beneficios path='/beneficios' />
+          </Router>
+        </div>
+      </ThemeProvider>
+    </>
   );
-}
+};
 
 export default App;

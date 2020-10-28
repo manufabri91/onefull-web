@@ -1,0 +1,63 @@
+{
+  "abonos": [
+    {
+      "title": "Abono Básico",
+      "subtitle": "Accedé a nuestros servicios básicos",
+      "price": 900,
+      "description": [
+        "85 canales",
+        "Atención personalizada",
+        "Soporte técnico 24/7"
+      ],
+      "buttonText": "¡Pedilo!"
+    },
+    {
+      "title": "Abono HD",
+      "subtitle": "La mejor calidad de imagen, al mejor precio",
+      "price": 1100,
+      "description": [
+        "420 canales",
+        "100 canales HD",
+        "Atención personalizada",
+        "Soporte técnico 24/7"
+      ],
+      "buttonText": "¡Pedilo!"
+    },
+    {
+      "title": "Abono ONEFull",
+      "subtitle": "La experiencia OneFull Completa",
+      "price": 1600,
+      "description": [
+        "420 canales",
+        "100 canales HD",
+        "Internet 50Mbps Wi-Fi",
+        "App NoraGO para ver TV en donde quieras",
+        "Atención personalizada",
+        "Soporte técnico 24/7"
+      ],
+      "buttonText": "¡Pedilo!"
+    }
+  ],
+  "promos": [
+    {
+      "type": "button",
+      "imageUrl": "https://i.ibb.co/5r2RRnP/One-Ventas.jpg",
+      "altText": "Ventas",
+      "buttonText": "Contactanos"
+    },
+    {
+      "type": "text",
+      "imageUrl": "https://i.ibb.co/dr08rkn/IR.png",
+      "altText": "Informe Regional",
+      "title": "",
+      "subtitle": ""
+    },
+    {
+      "type": "text",
+      "imageUrl": "https://i.ibb.co/F56RrtY/covid.png",
+      "altText": "COVID-19",
+      "title": "",
+      "subtitle": ""
+    }
+  ]
+}
