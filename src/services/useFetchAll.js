@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect } from "react";
 
 const useFetchAll = (urls) => {
   const [data, setData] = useState(null);
@@ -16,7 +16,6 @@ const useFetchAll = (urls) => {
     Promise.all(promises)
       .then((json) => setData(json))
       .catch((e) => {
-        console.error(e);
         setError(e);
       })
       .finally(() => setLoading(false));
