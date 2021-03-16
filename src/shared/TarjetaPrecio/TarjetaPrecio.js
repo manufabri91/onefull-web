@@ -7,29 +7,55 @@ import {
   Grid,
   Icon,
   Typography,
+  makeStyles,
 } from '@material-ui/core';
-import './TarjetaPrecio.scss';
+import colors from '../../assets/styles/colors.enum';
 import React from 'react';
 
+const useStyles = makeStyles((theme) => ({
+  card: {
+    height: '100%',
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'space-between',
+  },
+  header: {
+    backgroundColor: 'lightgrey',
+  },
+  content: {
+    display: 'flex',
+    flexDirection: 'column',
+    height: '100%',
+  },
+  pricing: {
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'baseline',
+    marginBottom: '1rem',
+  },
+  descriptionItem: {
+    display: 'flex',
+  },
+  featureIcon: {
+    color: colors.AZUL_ONE,
+  },
+}));
+
 const TarjetaPrecio = ({ item }) => {
+  const classes = useStyles();
   return (
     <Grid item key={item.title} xs={12} sm={12} md={4}>
-      <Card className='card'>
+      <Card className={classes.card}>
         <CardHeader
           title={item.title}
           subheader={item.subtitle}
           titleTypographyProps={{ align: 'center' }}
           subheaderTypographyProps={{ align: 'center' }}
-          className='header'
+          className={classes.header}
         />
-        <CardContent className='content'>
-          <div className='pricing'>
-            <Typography
-              component='h2'
-              variant='h3'
-              color='textPrimary'
-              classes={{}}
-            >
+        <CardContent className={classes.content}>
+          <div className={classes.pricing}>
+            <Typography component='h2' variant='h3' color='textPrimary'>
               $ {item.price}
             </Typography>
             <Typography variant='h6' color='textSecondary'>
@@ -39,12 +65,13 @@ const TarjetaPrecio = ({ item }) => {
           <ul>
             {item.description.map((line) => (
               <Typography
+                className={classes.descriptionItem}
                 component='li'
                 variant='subtitle1'
-                align='center'
+                align='left'
                 key={line}
               >
-                <Icon className='feature-icon'>check_circle</Icon>
+                <Icon className={classes.featureIcon}>check_circle</Icon>
                 {line}
               </Typography>
             ))}

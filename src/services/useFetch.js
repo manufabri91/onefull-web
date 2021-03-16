@@ -1,5 +1,5 @@
-import { useEffect, useState } from 'react';
-import axios from 'axios';
+import { useEffect, useState } from "react";
+import axios from "axios";
 
 const useFetch = (url) => {
   const [data, setData] = useState(null);
@@ -11,8 +11,8 @@ const useFetch = (url) => {
       try {
         const result = await axios(process.env.REACT_APP_API_BASE_URL + url);
         setData(result.data);
-      } catch (error) {
-        setError(error);
+      } catch (e) {
+        setError(e);
       }
       setLoading(false);
     };

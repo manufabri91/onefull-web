@@ -1,25 +1,28 @@
-import { createMuiTheme } from '@material-ui/core';
-import { teal } from '@material-ui/core/colors';
+import { createMuiTheme, responsiveFontSizes } from "@material-ui/core";
+import { deepOrange } from "@material-ui/core/colors";
+import colors from "./assets/styles/colors.enum";
 
-const theme = createMuiTheme({
+const muiTheme = createMuiTheme({
   palette: {
     primary: {
-      main: '#042af7',
-      dark: '#042e3d',
+      main: colors.AZUL_ONE,
+      dark: colors.AZUL_ONE_DARK,
     },
-    secondary: teal,
+    secondary: deepOrange,
+    text: {
+      primary: colors.NEGRO_ONE,
+    },
   },
   typography: {
     fontFamily: [
-      'Montserrat',
-      'Roboto',
-      '"Helvetica Neue"',
-      'Arial',
-      'sans-serif',
+      "Montserrat",
+      "sans-serif",
       '"Apple Color Emoji"',
       '"Segoe UI Emoji"',
       '"Segoe UI Symbol"',
-    ].join(','),
+    ].join(","),
   },
 });
+
+const theme = responsiveFontSizes(muiTheme);
 export default theme;
