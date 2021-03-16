@@ -1,27 +1,15 @@
 import {
-  Button,
   CircularProgress,
   Container,
-  Divider,
-  Drawer,
-  Fab,
   Grid,
-  List,
-  ListItem,
   makeStyles,
   styled,
-  TextField,
   Typography,
-  useMediaQuery,
-  useTheme,
 } from '@material-ui/core'
-import FilterListIcon from '@material-ui/icons/FilterList'
-import React, { useState } from 'react'
-import { useHistory, useLocation } from 'react-router-dom'
+import React from 'react'
 import PiggyAhorros from '../../assets/img/piggy-ahorros1.png'
 import colors from '../../assets/styles/colors.enum'
 import useFetch from '../../services/useFetch'
-import toQueryString from '../../shared/helpers/toQueryString'
 import TarjetaPrecio from '../../shared/TarjetaPrecio/TarjetaPrecio'
 
 const WhiteTitleTypography = styled(Typography)({
