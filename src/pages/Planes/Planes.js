@@ -69,7 +69,7 @@ const useStyles = makeStyles((theme) => ({
 const Planes = () => {
   const classes = useStyles()
 
-  const apiUrl = `abonos`
+  const apiUrl = `planes`
 
   const { data, loading, error } = useFetch(apiUrl)
 

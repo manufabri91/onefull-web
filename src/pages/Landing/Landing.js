@@ -7,18 +7,18 @@ import {
   makeStyles,
   styled,
   Typography,
-} from '@material-ui/core';
-import FacebookIcon from '@material-ui/icons/Facebook';
-import InstagramIcon from '@material-ui/icons/Instagram';
-import PhoneIcon from '@material-ui/icons/Phone';
-import AOS from 'aos';
-import React, { useEffect } from 'react';
-import Hero from '../../assets/img/hero.jpg';
-import Saving from '../../assets/img/saving.svg';
-import NoraGOApp from '../../assets/img/nora.svg';
-import Logo from '../../logo.svg';
-import useFetch from '../../services/useFetch';
-import TarjetaPrecio from '../../shared/TarjetaPrecio/TarjetaPrecio';
+} from '@material-ui/core'
+import FacebookIcon from '@material-ui/icons/Facebook'
+import InstagramIcon from '@material-ui/icons/Instagram'
+import PhoneIcon from '@material-ui/icons/Phone'
+import AOS from 'aos'
+import React, { useEffect } from 'react'
+import Hero from '../../assets/img/hero.jpg'
+import Saving from '../../assets/img/saving.svg'
+import NoraGOApp from '../../assets/img/nora.svg'
+import Logo from '../../logo.svg'
+import useFetch from '../../services/useFetch'
+import TarjetaPrecio from '../../shared/TarjetaPrecio/TarjetaPrecio'
 
 const useStyles = makeStyles((theme) => ({
   hero: {
@@ -104,22 +104,22 @@ const useStyles = makeStyles((theme) => ({
   footerItemDescription: {
     marginLeft: '.5rem',
   },
-}));
+}))
 
 const Landing = () => {
-  const styles = useStyles();
-  const { data, loading, error } = useFetch('abonos');
+  const styles = useStyles()
+  const { data, loading, error } = useFetch('planes')
   useEffect(() => {
-    AOS.init();
-  }, []);
+    AOS.init()
+  }, [])
   const HeroTypography = styled(Typography)({
     fontWeight: 700,
     opacity: 1,
     color: '#fff',
-  });
+  })
 
-  if (loading) return <CircularProgress />;
-  if (error) throw error;
+  if (loading) return <CircularProgress />
+  if (error) throw error
 
   return (
     <div>
@@ -360,7 +360,7 @@ const Landing = () => {
         </Box>
       </Container>
     </div>
-  );
-};
+  )
+}
 
-export default Landing;
+export default Landing

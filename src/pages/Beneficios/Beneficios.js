@@ -14,21 +14,21 @@ import {
   Typography,
   useMediaQuery,
   useTheme,
-} from '@material-ui/core';
-import FilterListIcon from '@material-ui/icons/FilterList';
-import React, { useState } from 'react';
-import { useHistory, useLocation } from 'react-router-dom';
-import PiggyAhorros from '../../assets/img/piggy-ahorros1.png';
-import colors from '../../assets/styles/colors.enum';
-import useFetch from '../../services/useFetch';
-import toQueryString from '../../shared/helpers/toQueryString';
-import TarjetaBeneficio from '../../shared/TarjetaBeneficio/TarjetaBeneficio';
+} from '@material-ui/core'
+import FilterListIcon from '@material-ui/icons/FilterList'
+import React, { useState } from 'react'
+import { useHistory, useLocation } from 'react-router-dom'
+import PiggyAhorros from '../../assets/img/piggy-ahorros1.png'
+import colors from '../../assets/styles/colors.enum'
+import useFetch from '../../services/useFetch'
+import toQueryString from '../../shared/helpers/toQueryString'
+import TarjetaBeneficio from '../../shared/TarjetaBeneficio/TarjetaBeneficio'
 
 const WhiteTitleTypography = styled(Typography)({
   fontWeight: 700,
   opacity: 1,
   color: '#fff',
-});
+})
 
 const useStyles = makeStyles((theme) => ({
   banner: {
@@ -76,66 +76,64 @@ const useStyles = makeStyles((theme) => ({
   fullList: {
     width: 'auto',
   },
-}));
+}))
 
 const Beneficios = () => {
-  const classes = useStyles();
-  const history = useHistory();
-  const search = useLocation().search;
-  const vendor = new URLSearchParams(search).get('proveedor') || '';
-  const city = new URLSearchParams(search).get('localidad') || '';
-  const type = new URLSearchParams(search).get('rubro') || '';
+  const classes = useStyles()
+  const history = useHistory()
+  const search = useLocation().search
+  const vendor = new URLSearchParams(search).get('proveedor') || ''
+  const city = new URLSearchParams(search).get('localidad') || ''
+  const type = new URLSearchParams(search).get('rubro') || ''
 
   const apiUrl = `beneficios${toQueryString({
-    'vendor.name': vendor,
-    'city.name': city,
-    'type.name': type,
-  })}`;
+    proveedor: vendor,
+    localidad: city,
+    rubro: type,
+  })}`
 
-  const { data, loading, error } = useFetch(apiUrl);
-  const [isOpenDrawer, setIsOpenDrawer] = useState(false);
-  const [typeFilter, setTypeFilter] = useState(type);
-  const [cityFilter, setCityFilter] = useState(city);
-  const [vendorFilter, setVendorFilter] = useState(vendor);
+  const { data, loading, error } = useFetch(apiUrl)
+  const [isOpenDrawer, setIsOpenDrawer] = useState(false)
+  const [typeFilter, setTypeFilter] = useState(type)
+  const [cityFilter, setCityFilter] = useState(city)
+  const [vendorFilter, setVendorFilter] = useState(vendor)
 
-  const theme = useTheme();
-  const isSmallScreen = useMediaQuery(theme.breakpoints.down('md'));
+  const theme = useTheme()
+  const isSmallScreen = useMediaQuery(theme.breakpoints.down('md'))
 
   const applyFilters = (proveedor, localidad, rubro) => {
-    history.push(
-      `/beneficios${toQueryString({ proveedor, localidad, rubro })}`
-    );
-  };
+    history.push(`/beneficios${toQueryString({ proveedor, localidad, rubro })}`)
+  }
 
   const handleApply = (e) => {
-    e.preventDefault();
-    applyFilters(vendorFilter, cityFilter, typeFilter);
-    setIsOpenDrawer(false);
-  };
+    e.preventDefault()
+    applyFilters(vendorFilter, cityFilter, typeFilter)
+    setIsOpenDrawer(false)
+  }
 
   const handleClear = (e) => {
-    e.preventDefault();
-    setTypeFilter('');
-    setCityFilter('');
-    setVendorFilter('');
-    applyFilters();
-    setIsOpenDrawer(false);
-  };
+    e.preventDefault()
+    setTypeFilter('')
+    setCityFilter('')
+    setVendorFilter('')
+    applyFilters()
+    setIsOpenDrawer(false)
+  }
 
   const toggleDrawer = (isOpen) => (event) => {
     if (
       event.type === 'keydown' &&
       (event.key === 'Tab' || event.key === 'Shift')
     ) {
-      return;
+      return
     }
 
-    applyFilters(vendorFilter, cityFilter, typeFilter);
-    setIsOpenDrawer(isOpen);
-  };
+    applyFilters(vendorFilter, cityFilter, typeFilter)
+    setIsOpenDrawer(isOpen)
+  }
 
-  if (loading) return <CircularProgress />;
-  if (error) throw error;
+  if (loading) return <CircularProgress />
+  if (error) throw error
   return (
     <>
       <Container maxWidth='xl' component='section' className={classes.banner}>
@@ -273,7 +271,7 @@ const Beneficios = () => {
         </form>
       </Drawer>
     </>
-  );
-};
+  )
+}
 
-export default Beneficios;
+export default Beneficios
