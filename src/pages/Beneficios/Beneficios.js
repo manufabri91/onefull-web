@@ -19,11 +19,12 @@ import {
   useTheme,
 } from '@material-ui/core';
 import FilterListIcon from '@material-ui/icons/FilterList';
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { useHistory, useLocation } from 'react-router-dom';
 import apiRoutes from '../../apiRoutes';
 import PiggyAhorros from '../../assets/img/piggy-ahorros1.png';
 import colors from '../../assets/styles/colors.enum';
+import CityContext from '../../CityContext';
 import useFetchAll from '../../services/useFetchAll';
 import toQueryString from '../../shared/helpers/toQueryString';
 import TarjetaBeneficio from '../../shared/TarjetaBeneficio/TarjetaBeneficio';
@@ -89,6 +90,7 @@ const Beneficios = () => {
   const vendor = new URLSearchParams(search).get('proveedor') || '';
   const city = new URLSearchParams(search).get('localidad') || '';
   const type = new URLSearchParams(search).get('rubro') || '';
+  const { cities: localities } = useContext(CityContext);
 
   const benefitsUrl = `${apiRoutes.benefits}${toQueryString({
     proveedor: vendor,
@@ -100,7 +102,7 @@ const Beneficios = () => {
   const [cityFilter, setCityFilter] = useState(city);
   const [vendorFilter, setVendorFilter] = useState(vendor);
   const { data, loading, error } = useFetchAll(
-    [benefitsUrl, apiRoutes.benefitTypes, apiRoutes.cities, apiRoutes.cities],
+    [benefitsUrl, apiRoutes.benefitTypes, apiRoutes.suppliers],
     [benefitsUrl]
   );
 
@@ -142,7 +144,7 @@ const Beneficios = () => {
   if (loading) return <CircularProgress />;
   if (error) throw error;
 
-  const [benefits, benefitTypes, localities, suppliers] = data;
+  const [benefits, benefitTypes, suppliers] = data;
 
   return (
     <>
