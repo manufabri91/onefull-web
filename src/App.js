@@ -71,7 +71,7 @@ const App = () => {
   const [selectedCity, setSelectedCity] = useState();
   useEffect(() => {
     if (cities) {
-      setSelectedCity(cities[0].id);
+      setSelectedCity(cities[0]);
     }
   }, [cities]);
   const classes = useStyles();
@@ -116,7 +116,7 @@ const App = () => {
                     onChange={(e) => setSelectedCity(e.target.value)}
                   >
                     {cities.map((city) => (
-                      <MenuItem key={`${city.id}_${city.name}`} value={city.id}>
+                      <MenuItem key={`${city.id}_${city.name}`} value={city}>
                         {city.name}
                       </MenuItem>
                     ))}

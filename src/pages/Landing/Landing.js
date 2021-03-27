@@ -1,9 +1,7 @@
 import {
-  Box,
   CircularProgress,
   Container,
   Grid,
-  Link,
   makeStyles,
   styled,
   Typography,
@@ -94,10 +92,10 @@ const Landing = () => {
   const styles = useStyles();
   const cityContext = useContext(CityContext);
   const plansUrl = `${apiRoutes.plans}${toQueryString({
-    localidad: cityContext.selectedCity,
+    localidad: cityContext.selectedCity.id,
   })}`;
   const { data, loading, error } = useFetch(plansUrl, [
-    cityContext.selectedCity,
+    cityContext.selectedCity.id,
   ]);
   useEffect(() => {
     AOS.init();
@@ -233,12 +231,7 @@ const Landing = () => {
           color='initial'
           gutterBottom
         >
-          Promociones destacadas en{' '}
-          {
-            cityContext.cities.find(
-              (city) => city.id === cityContext.selectedCity
-            ).name
-          }
+          Promociones destacadas en{` ${cityContext.selectedCity.name}`}
         </Typography>
         <Container maxWidth='lg' className={styles.tarjetasPrecios}>
           <Grid container spacing={data.length}>

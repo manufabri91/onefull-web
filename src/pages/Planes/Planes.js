@@ -73,10 +73,10 @@ const Planes = () => {
   const classes = useStyles();
   const cityContext = useContext(CityContext);
   const plansUrl = `${apiRoutes.plans}${toQueryString({
-    localidad: cityContext.selectedCity,
+    localidad: cityContext.selectedCity.id,
   })}`;
   const { data, loading, error } = useFetch(plansUrl, [
-    cityContext.selectedCity,
+    cityContext.selectedCity.id,
   ]);
 
   if (loading) return <CircularProgress />;
