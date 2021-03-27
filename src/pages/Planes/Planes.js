@@ -5,18 +5,18 @@ import {
   makeStyles,
   styled,
   Typography,
-} from '@material-ui/core'
-import React from 'react'
-import PiggyAhorros from '../../assets/img/piggy-ahorros1.png'
-import colors from '../../assets/styles/colors.enum'
-import useFetch from '../../services/useFetch'
-import TarjetaPrecio from '../../shared/TarjetaPrecio/TarjetaPrecio'
+} from '@material-ui/core';
+import React from 'react';
+import PiggyAhorros from '../../assets/img/piggy-ahorros1.png';
+import colors from '../../assets/styles/colors.enum';
+import useFetch from '../../services/useFetch';
+import TarjetaPrecio from '../../shared/TarjetaPrecio/TarjetaPrecio';
 
 const WhiteTitleTypography = styled(Typography)({
   fontWeight: 700,
   opacity: 1,
   color: '#fff',
-})
+});
 
 const useStyles = makeStyles((theme) => ({
   banner: {
@@ -64,17 +64,17 @@ const useStyles = makeStyles((theme) => ({
   fullList: {
     width: 'auto',
   },
-}))
+}));
 
 const Planes = () => {
-  const classes = useStyles()
+  const classes = useStyles();
 
-  const apiUrl = `planes`
+  const apiUrl = `planes`;
 
-  const { data, loading, error } = useFetch(apiUrl)
+  const { data, loading, error } = useFetch(apiUrl);
 
-  if (loading) return <CircularProgress />
-  if (error) throw error
+  if (loading) return <CircularProgress />;
+  if (error) throw error;
   return (
     <>
       <Container maxWidth='xl' component='section' className={classes.banner}>
@@ -109,7 +109,7 @@ const Planes = () => {
         </Container>
       </section>
     </>
-  )
-}
+  );
+};
 
-export default Planes
+export default Planes;

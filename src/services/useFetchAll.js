@@ -1,6 +1,6 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect } from 'react';
 
-const useFetchAll = (urls) => {
+export default function useFetchAll(urls, dependencies) {
   const [data, setData] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -16,13 +16,12 @@ const useFetchAll = (urls) => {
     Promise.all(promises)
       .then((json) => setData(json))
       .catch((e) => {
+        console.error(e);
         setError(e);
       })
       .finally(() => setLoading(false));
     // eslint-disable-next-line
-  }, []);
+  }, [dependencies]);
 
   return { data, loading, error };
-};
-
-export default useFetchAll;
+}

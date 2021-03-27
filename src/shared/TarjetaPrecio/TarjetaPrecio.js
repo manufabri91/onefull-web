@@ -8,9 +8,9 @@ import {
   Icon,
   Typography,
   makeStyles,
-} from '@material-ui/core'
-import colors from '../../assets/styles/colors.enum'
-import React from 'react'
+} from '@material-ui/core';
+import colors from '../../assets/styles/colors.enum';
+import React from 'react';
 
 const useStyles = makeStyles((theme) => ({
   card: {
@@ -39,10 +39,10 @@ const useStyles = makeStyles((theme) => ({
   featureIcon: {
     color: colors.AZUL_ONE,
   },
-}))
+}));
 
 const TarjetaPrecio = ({ item }) => {
-  const classes = useStyles()
+  const classes = useStyles();
   return (
     <Grid item key={item.name} xs={12} sm={12} md={4}>
       <Card className={classes.card}>
@@ -84,7 +84,7 @@ const TarjetaPrecio = ({ item }) => {
         </CardActions>
       </Card>
     </Grid>
-  )
-}
+  );
+};
 
-export default TarjetaPrecio
+export default TarjetaPrecio;

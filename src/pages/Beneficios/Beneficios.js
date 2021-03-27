@@ -5,30 +5,33 @@ import {
   Divider,
   Drawer,
   Fab,
+  FormControl,
   Grid,
+  InputLabel,
   List,
   ListItem,
   makeStyles,
+  MenuItem,
+  Select,
   styled,
-  TextField,
   Typography,
   useMediaQuery,
   useTheme,
-} from '@material-ui/core'
-import FilterListIcon from '@material-ui/icons/FilterList'
-import React, { useState } from 'react'
-import { useHistory, useLocation } from 'react-router-dom'
-import PiggyAhorros from '../../assets/img/piggy-ahorros1.png'
-import colors from '../../assets/styles/colors.enum'
-import useFetch from '../../services/useFetch'
-import toQueryString from '../../shared/helpers/toQueryString'
-import TarjetaBeneficio from '../../shared/TarjetaBeneficio/TarjetaBeneficio'
+} from '@material-ui/core';
+import FilterListIcon from '@material-ui/icons/FilterList';
+import React, { useState } from 'react';
+import { useHistory, useLocation } from 'react-router-dom';
+import PiggyAhorros from '../../assets/img/piggy-ahorros1.png';
+import colors from '../../assets/styles/colors.enum';
+import useFetchAll from '../../services/useFetchAll';
+import toQueryString from '../../shared/helpers/toQueryString';
+import TarjetaBeneficio from '../../shared/TarjetaBeneficio/TarjetaBeneficio';
 
 const WhiteTitleTypography = styled(Typography)({
   fontWeight: 700,
   opacity: 1,
   color: '#fff',
-})
+});
 
 const useStyles = makeStyles((theme) => ({
   banner: {
@@ -76,64 +79,76 @@ const useStyles = makeStyles((theme) => ({
   fullList: {
     width: 'auto',
   },
-}))
+}));
 
 const Beneficios = () => {
-  const classes = useStyles()
-  const history = useHistory()
-  const search = useLocation().search
-  const vendor = new URLSearchParams(search).get('proveedor') || ''
-  const city = new URLSearchParams(search).get('localidad') || ''
-  const type = new URLSearchParams(search).get('rubro') || ''
+  const classes = useStyles();
+  const history = useHistory();
+  const search = useLocation().search;
+  const vendor = new URLSearchParams(search).get('proveedor') || '';
+  const city = new URLSearchParams(search).get('localidad') || '';
+  const type = new URLSearchParams(search).get('rubro') || '';
 
-  const apiUrl = `beneficios${toQueryString({
+  const benefitsUrl = `beneficios${toQueryString({
     proveedor: vendor,
     localidad: city,
     rubro: type,
-  })}`
+  })}`;
+  const benefitTypesUrl = 'rubros';
+  const localitiesUrl = 'localidades';
+  const suppliersUrl = 'proveedores';
 
-  const { data, loading, error } = useFetch(apiUrl)
-  const [isOpenDrawer, setIsOpenDrawer] = useState(false)
-  const [typeFilter, setTypeFilter] = useState(type)
-  const [cityFilter, setCityFilter] = useState(city)
-  const [vendorFilter, setVendorFilter] = useState(vendor)
+  const { data, loading, error } = useFetchAll([
+    benefitsUrl,
+    benefitTypesUrl,
+    localitiesUrl,
+    suppliersUrl,
+  ]);
+  const [isOpenDrawer, setIsOpenDrawer] = useState(false);
+  const [typeFilter, setTypeFilter] = useState(type);
+  const [cityFilter, setCityFilter] = useState(city);
+  const [vendorFilter, setVendorFilter] = useState(vendor);
 
-  const theme = useTheme()
-  const isSmallScreen = useMediaQuery(theme.breakpoints.down('md'))
+  const theme = useTheme();
+  const isSmallScreen = useMediaQuery(theme.breakpoints.down('md'));
 
   const applyFilters = (proveedor, localidad, rubro) => {
-    history.push(`/beneficios${toQueryString({ proveedor, localidad, rubro })}`)
-  }
+    history.push(
+      `/beneficios${toQueryString({ proveedor, localidad, rubro })}`
+    );
+  };
 
   const handleApply = (e) => {
-    e.preventDefault()
-    applyFilters(vendorFilter, cityFilter, typeFilter)
-    setIsOpenDrawer(false)
-  }
+    e.preventDefault();
+    applyFilters(vendorFilter, cityFilter, typeFilter);
+    setIsOpenDrawer(false);
+  };
 
   const handleClear = (e) => {
-    e.preventDefault()
-    setTypeFilter('')
-    setCityFilter('')
-    setVendorFilter('')
-    applyFilters()
-    setIsOpenDrawer(false)
-  }
+    e.preventDefault();
+    setTypeFilter('');
+    setCityFilter('');
+    setVendorFilter('');
+    applyFilters();
+    setIsOpenDrawer(false);
+  };
 
   const toggleDrawer = (isOpen) => (event) => {
     if (
       event.type === 'keydown' &&
       (event.key === 'Tab' || event.key === 'Shift')
     ) {
-      return
+      return;
     }
+    if (!isOpen) applyFilters(vendorFilter, cityFilter, typeFilter);
+    setIsOpenDrawer(isOpen);
+  };
 
-    applyFilters(vendorFilter, cityFilter, typeFilter)
-    setIsOpenDrawer(isOpen)
-  }
+  if (loading) return <CircularProgress />;
+  if (error) throw error;
 
-  if (loading) return <CircularProgress />
-  if (error) throw error
+  const [benefits, benefitTypes, localities, suppliers] = data;
+
   return (
     <>
       <Container maxWidth='xl' component='section' className={classes.banner}>
@@ -187,8 +202,14 @@ const Beneficios = () => {
       <section className={classes.gridContainer}>
         <Container maxWidth='lg'>
           <Grid container spacing={2} className={classes.gridContainer}>
-            {data.map((beneficio) => (
-              <Grid item xs={12} md={4} className={classes.gridItem}>
+            {benefits.map((beneficio) => (
+              <Grid
+                key={beneficio.title}
+                item
+                xs={12}
+                md={4}
+                className={classes.gridItem}
+              >
                 <TarjetaBeneficio
                   key={`destacado_${beneficio.id}`}
                   item={beneficio}
@@ -221,34 +242,58 @@ const Beneficios = () => {
           </Typography>
           <List>
             <ListItem>
-              <TextField
-                fullWidth
-                onChange={(e) => setTypeFilter(e.target.value)}
-                value={typeFilter}
-                id='rubro'
-                label='Rubro'
-                variant='outlined'
-              />
+              <FormControl fullWidth>
+                <InputLabel id='type-label'>Rubro</InputLabel>
+                <Select
+                  labelId='type-label'
+                  id='type-select'
+                  value={typeFilter}
+                  onChange={(e) => setTypeFilter(e.target.value)}
+                >
+                  {benefitTypes.map((type) => (
+                    <MenuItem key={`${type.id}_${type.name}`} value={type.id}>
+                      {type.name}
+                    </MenuItem>
+                  ))}
+                </Select>
+              </FormControl>
             </ListItem>
             <ListItem>
-              <TextField
-                fullWidth
-                onChange={(e) => setCityFilter(e.target.value)}
-                value={cityFilter}
-                id='localidad'
-                label='Localidad'
-                variant='outlined'
-              />
+              <FormControl fullWidth>
+                <InputLabel id='locality-label'>Localidad</InputLabel>
+                <Select
+                  labelId='locality-label'
+                  id='locality-select'
+                  value={cityFilter}
+                  onChange={(e) => setCityFilter(e.target.value)}
+                >
+                  {localities.map((city) => (
+                    <MenuItem key={`${city.id}_${city.name}`} value={city.id}>
+                      {city.name}
+                    </MenuItem>
+                  ))}
+                </Select>
+              </FormControl>
             </ListItem>
             <ListItem>
-              <TextField
-                fullWidth
-                onChange={(e) => setVendorFilter(e.target.value)}
-                value={vendorFilter}
-                id='proveedor'
-                label='Proveedor'
-                variant='outlined'
-              />
+              <FormControl fullWidth>
+                <InputLabel id='vendor-label'>Localidad</InputLabel>
+                <Select
+                  labelId='vendor-label'
+                  id='vendor-select'
+                  value={vendorFilter}
+                  onChange={(e) => setVendorFilter(e.target.value)}
+                >
+                  {suppliers.map((vendor) => (
+                    <MenuItem
+                      key={`${vendor.id}_${vendor.name}`}
+                      value={vendor.id}
+                    >
+                      {vendor.name}
+                    </MenuItem>
+                  ))}
+                </Select>
+              </FormControl>
             </ListItem>
           </List>
           <Divider />
@@ -271,7 +316,7 @@ const Beneficios = () => {
         </form>
       </Drawer>
     </>
-  )
-}
+  );
+};
 
-export default Beneficios
+export default Beneficios;

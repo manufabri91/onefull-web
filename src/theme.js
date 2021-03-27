@@ -1,6 +1,9 @@
-import { createMuiTheme, responsiveFontSizes } from "@material-ui/core";
-import { deepOrange } from "@material-ui/core/colors";
-import colors from "./assets/styles/colors.enum";
+import {
+  unstable_createMuiStrictModeTheme as createMuiTheme,
+  responsiveFontSizes,
+} from '@material-ui/core';
+import { deepOrange } from '@material-ui/core/colors';
+import colors from './assets/styles/colors.enum';
 
 const muiTheme = createMuiTheme({
   palette: {
@@ -15,12 +18,12 @@ const muiTheme = createMuiTheme({
   },
   typography: {
     fontFamily: [
-      "Montserrat",
-      "sans-serif",
+      'Montserrat',
+      'sans-serif',
       '"Apple Color Emoji"',
       '"Segoe UI Emoji"',
       '"Segoe UI Symbol"',
-    ].join(","),
+    ].join(','),
   },
 });
 

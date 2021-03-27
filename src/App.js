@@ -1,14 +1,14 @@
-import { AppBar, Toolbar } from '@material-ui/core'
-import Button from '@material-ui/core/Button'
-import CssBaseline from '@material-ui/core/CssBaseline'
-import { makeStyles, ThemeProvider } from '@material-ui/core/styles'
-import React from 'react'
-import { BrowserRouter as Router, Link, Route, Switch } from 'react-router-dom'
-import logo from './logo.svg'
-import Beneficios from './pages/Beneficios/Beneficios'
-import Landing from './pages/Landing/Landing'
-import Planes from './pages/Planes/Planes'
-import theme from './theme'
+import { AppBar, Toolbar } from '@material-ui/core';
+import Button from '@material-ui/core/Button';
+import CssBaseline from '@material-ui/core/CssBaseline';
+import { makeStyles, ThemeProvider } from '@material-ui/core/styles';
+import React from 'react';
+import { BrowserRouter as Router, Link, Route, Switch } from 'react-router-dom';
+import logo from './logo.svg';
+import Beneficios from './pages/Beneficios/Beneficios';
+import Landing from './pages/Landing/Landing';
+import Planes from './pages/Planes/Planes';
+import theme from './theme';
 
 const useStyles = makeStyles((muiTheme) => ({
   root: {
@@ -27,10 +27,10 @@ const useStyles = makeStyles((muiTheme) => ({
   title: {
     flexGrow: 1,
   },
-}))
+}));
 
 const App = () => {
-  const classes = useStyles()
+  const classes = useStyles();
   return (
     <Router>
       <CssBaseline />
@@ -81,7 +81,7 @@ const App = () => {
         </div>
       </ThemeProvider>
     </Router>
-  )
-}
+  );
+};
 
-export default App
+export default App;
