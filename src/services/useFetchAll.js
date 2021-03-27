@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 
-export default function useFetchAll(urls, dependencies) {
+export default function useFetchAll(urls, dependencies = []) {
   const [data, setData] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -21,7 +21,7 @@ export default function useFetchAll(urls, dependencies) {
       })
       .finally(() => setLoading(false));
     // eslint-disable-next-line
-  }, [dependencies]);
+  }, dependencies);
 
   return { data, loading, error };
 }

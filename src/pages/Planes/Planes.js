@@ -6,10 +6,13 @@ import {
   styled,
   Typography,
 } from '@material-ui/core';
-import React from 'react';
+import React, { useContext } from 'react';
+import apiRoutes from '../../apiRoutes';
 import PiggyAhorros from '../../assets/img/piggy-ahorros1.png';
 import colors from '../../assets/styles/colors.enum';
+import CityContext from '../../CityContext';
 import useFetch from '../../services/useFetch';
+import toQueryString from '../../shared/helpers/toQueryString';
 import TarjetaPrecio from '../../shared/TarjetaPrecio/TarjetaPrecio';
 
 const WhiteTitleTypography = styled(Typography)({
@@ -68,10 +71,13 @@ const useStyles = makeStyles((theme) => ({
 
 const Planes = () => {
   const classes = useStyles();
-
-  const apiUrl = `planes`;
-
-  const { data, loading, error } = useFetch(apiUrl);
+  const cityContext = useContext(CityContext);
+  const plansUrl = `${apiRoutes.plans}${toQueryString({
+    localidad: cityContext.selectedCity,
+  })}`;
+  const { data, loading, error } = useFetch(plansUrl, [
+    cityContext.selectedCity,
+  ]);
 
   if (loading) return <CircularProgress />;
   if (error) throw error;

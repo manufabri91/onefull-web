@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import axios from 'axios';
 
-const useFetch = (url) => {
+const useFetch = (url, dependencies = []) => {
   const [data, setData] = useState(null);
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -17,7 +17,8 @@ const useFetch = (url) => {
       setLoading(false);
     };
     makeRequest();
-  }, [url]);
+    // eslint-disable-next-line
+  }, dependencies);
   return { data, loading, error };
 };
 

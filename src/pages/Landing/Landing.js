@@ -8,17 +8,17 @@ import {
   styled,
   Typography,
 } from '@material-ui/core';
-import FacebookIcon from '@material-ui/icons/Facebook';
-import InstagramIcon from '@material-ui/icons/Instagram';
-import PhoneIcon from '@material-ui/icons/Phone';
 import AOS from 'aos';
-import React, { useEffect } from 'react';
+import React, { useContext, useEffect } from 'react';
 import Hero from '../../assets/img/hero.jpg';
 import Saving from '../../assets/img/saving.svg';
 import NoraGOApp from '../../assets/img/nora.svg';
 import Logo from '../../logo.svg';
 import useFetch from '../../services/useFetch';
 import TarjetaPrecio from '../../shared/TarjetaPrecio/TarjetaPrecio';
+import apiRoutes from '../../apiRoutes';
+import CityContext from '../../CityContext';
+import toQueryString from '../../shared/helpers/toQueryString';
 
 const useStyles = makeStyles((theme) => ({
   hero: {
@@ -68,6 +68,7 @@ const useStyles = makeStyles((theme) => ({
   },
   tarjetasPrecios: {
     display: 'flex',
+    justifyContent: 'space-between',
     padding: '3rem 1rem',
     [theme.breakpoints.up('md')]: {
       display: 'flex',
@@ -87,28 +88,17 @@ const useStyles = makeStyles((theme) => ({
       padding: '145px 0',
     },
   },
-  footer: {
-    borderTop: `1px solid ${theme.palette.divider}`,
-    marginTop: theme.spacing(8),
-    paddingTop: theme.spacing(3),
-    paddingBottom: theme.spacing(3),
-    [theme.breakpoints.up('sm')]: {
-      paddingTop: theme.spacing(6),
-      paddingBottom: theme.spacing(6),
-    },
-  },
-  footerItem: {
-    display: 'flex',
-    alignItems: 'center',
-  },
-  footerItemDescription: {
-    marginLeft: '.5rem',
-  },
 }));
 
 const Landing = () => {
   const styles = useStyles();
-  const { data, loading, error } = useFetch('planes');
+  const cityContext = useContext(CityContext);
+  const plansUrl = `${apiRoutes.plans}${toQueryString({
+    localidad: cityContext.selectedCity,
+  })}`;
+  const { data, loading, error } = useFetch(plansUrl, [
+    cityContext.selectedCity,
+  ]);
   useEffect(() => {
     AOS.init();
   }, []);
@@ -243,7 +233,12 @@ const Landing = () => {
           color='initial'
           gutterBottom
         >
-          Promociones destacadas
+          Promociones destacadas en{' '}
+          {
+            cityContext.cities.find(
+              (city) => city.id === cityContext.selectedCity
+            ).name
+          }
         </Typography>
         <Container maxWidth='lg' className={styles.tarjetasPrecios}>
           <Grid container spacing={data.length}>
@@ -252,112 +247,6 @@ const Landing = () => {
             ))}
           </Grid>
         </Container>
-      </Container>
-      <Container maxWidth='md' component='footer' className={styles.footer}>
-        <Grid container spacing={4} justify='space-evenly'>
-          <Grid item xs={12} md={6}>
-            <Typography
-              align='center'
-              variant='h6'
-              color='secondary'
-              gutterBottom
-            >
-              CONTACTANOS
-            </Typography>
-            <ul>
-              <li className={styles.footerItem}>
-                <PhoneIcon color='primary' />
-                <Typography variant='h6' color='primary'>
-                  At. al Cliente
-                </Typography>
-                <Link
-                  href='tel:08002667005'
-                  target='_blank'
-                  onClick={(e) => e.preventDefault}
-                  className={styles.footerItemDescription}
-                  variant='subtitle2'
-                  color='textPrimary'
-                >
-                  0800-266-7005
-                </Link>
-              </li>
-              <li className={styles.footerItem}>
-                <PhoneIcon color='primary' />
-                <Typography variant='h6' color='primary'>
-                  Guardia
-                </Typography>
-                <Link
-                  href='tel:+5493413612671'
-                  target='_blank'
-                  onClick={(e) => e.preventDefault}
-                  className={styles.footerItemDescription}
-                  variant='subtitle2'
-                  color='textPrimary'
-                >
-                  0341 - 153612671
-                </Link>
-              </li>
-            </ul>
-          </Grid>
-          <Grid item xs={12} md={6}>
-            <Typography
-              align='center'
-              variant='h6'
-              color='secondary'
-              gutterBottom
-            >
-              NUESTRAS REDES
-            </Typography>
-            <ul>
-              <li
-                className={styles.footerItem}
-                style={{ marginBottom: '.5rem' }}
-              >
-                <InstagramIcon color='primary' />
-                <Link
-                  href='https://www.instagram.com/onefull_ok'
-                  target='_blank'
-                  onClick={(e) => e.preventDefault}
-                  className={styles.footerItemDescription}
-                  variant='subtitle2'
-                  color='textPrimary'
-                >
-                  @onefull_ok
-                </Link>
-              </li>
-              <li className={styles.footerItem}>
-                <FacebookIcon color='primary' />
-
-                <Link
-                  href='https://www.facebook.com/villeneuvegroupsa'
-                  target='_blank'
-                  onClick={(e) => e.preventDefault}
-                  className={styles.footerItemDescription}
-                  variant='subtitle2'
-                  color='textPrimary'
-                >
-                  ONE FULL
-                </Link>
-              </li>
-            </ul>
-          </Grid>
-        </Grid>
-        <Box mt={5}>
-          <Typography
-            variant='body2'
-            color='textSecondary'
-            align='center'
-            paragraph
-          >
-            Los servicios que presta ONEFull están sujetos a disponibilidad
-            técnica y geográfica.
-          </Typography>
-          <Typography variant='body2' color='textSecondary' align='center'>
-            {'OneFull - '}
-            {new Date().getFullYear()}
-            {' - Todos los derechos reservados. '}
-          </Typography>
-        </Box>
       </Container>
     </div>
   );

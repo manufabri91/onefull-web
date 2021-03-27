@@ -21,6 +21,7 @@ import {
 import FilterListIcon from '@material-ui/icons/FilterList';
 import React, { useState } from 'react';
 import { useHistory, useLocation } from 'react-router-dom';
+import apiRoutes from '../../apiRoutes';
 import PiggyAhorros from '../../assets/img/piggy-ahorros1.png';
 import colors from '../../assets/styles/colors.enum';
 import useFetchAll from '../../services/useFetchAll';
@@ -89,25 +90,19 @@ const Beneficios = () => {
   const city = new URLSearchParams(search).get('localidad') || '';
   const type = new URLSearchParams(search).get('rubro') || '';
 
-  const benefitsUrl = `beneficios${toQueryString({
+  const benefitsUrl = `${apiRoutes.benefits}${toQueryString({
     proveedor: vendor,
     localidad: city,
     rubro: type,
   })}`;
-  const benefitTypesUrl = 'rubros';
-  const localitiesUrl = 'localidades';
-  const suppliersUrl = 'proveedores';
-
-  const { data, loading, error } = useFetchAll([
-    benefitsUrl,
-    benefitTypesUrl,
-    localitiesUrl,
-    suppliersUrl,
-  ]);
   const [isOpenDrawer, setIsOpenDrawer] = useState(false);
   const [typeFilter, setTypeFilter] = useState(type);
   const [cityFilter, setCityFilter] = useState(city);
   const [vendorFilter, setVendorFilter] = useState(vendor);
+  const { data, loading, error } = useFetchAll(
+    [benefitsUrl, apiRoutes.benefitTypes, apiRoutes.cities, apiRoutes.cities],
+    [benefitsUrl]
+  );
 
   const theme = useTheme();
   const isSmallScreen = useMediaQuery(theme.breakpoints.down('md'));
@@ -277,7 +272,7 @@ const Beneficios = () => {
             </ListItem>
             <ListItem>
               <FormControl fullWidth>
-                <InputLabel id='vendor-label'>Localidad</InputLabel>
+                <InputLabel id='vendor-label'>Proveedor</InputLabel>
                 <Select
                   labelId='vendor-label'
                   id='vendor-select'

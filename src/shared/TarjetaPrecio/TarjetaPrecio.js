@@ -79,7 +79,7 @@ const TarjetaPrecio = ({ item }) => {
         </CardContent>
         <CardActions>
           <Button fullWidth variant='contained' color='primary'>
-            {item.buttonText}
+            Contratar
           </Button>
         </CardActions>
       </Card>
