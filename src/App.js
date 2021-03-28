@@ -93,17 +93,17 @@ const App = () => {
                 className={classes.menuButton}
                 color='primary'
                 component={Link}
-                to='/beneficios'
+                to='/planes'
               >
-                Beneficios
+                Planes
               </Button>
               <Button
                 className={classes.menuButton}
                 color='primary'
                 component={Link}
-                to='/planes'
+                to='/beneficios'
               >
-                Planes
+                Beneficios
               </Button>
               <div className={classes.localityDiv}>
                 <FormControl>

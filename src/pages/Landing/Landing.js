@@ -66,7 +66,6 @@ const useStyles = makeStyles((theme) => ({
   },
   tarjetasPrecios: {
     display: 'flex',
-    justifyContent: 'space-between',
     padding: '3rem 1rem',
     [theme.breakpoints.up('md')]: {
       display: 'flex',
@@ -234,7 +233,7 @@ const Landing = () => {
           Promociones destacadas en{` ${cityContext.selectedCity.name}`}
         </Typography>
         <Container maxWidth='lg' className={styles.tarjetasPrecios}>
-          <Grid container spacing={data.length}>
+          <Grid container spacing={data.length} justify='center'>
             {data.map((abono, i) => (
               <TarjetaPrecio key={`destacado_${i}`} item={abono} />
             ))}

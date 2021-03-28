@@ -10,7 +10,8 @@ import {
   makeStyles,
 } from '@material-ui/core';
 import colors from '../../assets/styles/colors.enum';
-import React from 'react';
+import React, { useState } from 'react';
+import ModalContactanos from '../ModalContactanos/ModalContactanos';
 
 const useStyles = makeStyles((theme) => ({
   card: {
@@ -43,6 +44,8 @@ const useStyles = makeStyles((theme) => ({
 
 const TarjetaPrecio = ({ item }) => {
   const classes = useStyles();
+  const [openModal, setOpenModal] = useState(false);
+  const handleCloseModal = () => setOpenModal(false);
   return (
     <Grid item key={item.name} xs={12} sm={12} md={4}>
       <Card className={classes.card}>
@@ -78,11 +81,21 @@ const TarjetaPrecio = ({ item }) => {
           </ul>
         </CardContent>
         <CardActions>
-          <Button fullWidth variant='contained' color='primary'>
+          <Button
+            fullWidth
+            variant='contained'
+            color='primary'
+            onClick={() => setOpenModal(true)}
+          >
             Contratar
           </Button>
         </CardActions>
       </Card>
+      <ModalContactanos
+        open={openModal}
+        handleClose={handleCloseModal}
+        plan={item.name}
+      ></ModalContactanos>
     </Grid>
   );
 };

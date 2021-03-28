@@ -23,6 +23,18 @@ const useStyles = makeStyles((theme) => ({
 
 const TarjetaBeneficio = ({ item }) => {
   const classes = useStyles();
+  const handleShare = async () => {
+    const shareData = {
+      title: 'Beneficio con OneFull',
+      text: `Mira este descuento en ${item.supplier.name}`,
+      url: `${process.env.REACT_APP_URL}beneficios?proveedor=${item.supplier.id}`,
+    };
+    try {
+      await navigator.share(shareData);
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   return (
     <Card className={classes.root}>
@@ -54,7 +66,7 @@ const TarjetaBeneficio = ({ item }) => {
         </Typography>
       </CardContent>
       <CardActions disableSpacing>
-        <IconButton aria-label='share'>
+        <IconButton aria-label='share' onClick={handleShare}>
           <ShareIcon />
         </IconButton>
       </CardActions>
