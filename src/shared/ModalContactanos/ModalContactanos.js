@@ -22,9 +22,6 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const ModalContactanos = ({ open, handleClose, plan }) => {
-  const emailJSUser = `${process.env.REACT_APP_EMAIL_JS_USER}`;
-  const emailJSTemplate = `${process.env.REACT_APP_EMAIL_JS_TEMPLATE}`;
-  const emailJSService = `${process.env.REACT_APP_EMAIL_JS_SERVICE}`;
   const classes = useStyles();
   const { selectedCity } = useContext(CityContext);
   const [contactData, setContactData] = useState({});
@@ -49,8 +46,8 @@ const ModalContactanos = ({ open, handleClose, plan }) => {
 
     emailjs
       .send(
-        emailJSService,
-        emailJSTemplate,
+        process.env.REACT_APP_EMAIL_JS_USER,
+        process.env.REACT_APP_EMAIL_JS_TEMPLATE,
         {
           firstName: contactData.firstName,
           lastName: contactData.lastName,
@@ -58,7 +55,7 @@ const ModalContactanos = ({ open, handleClose, plan }) => {
           city: selectedCity.name,
           mailBody,
         },
-        emailJSUser
+        process.env.REACT_APP_EMAIL_JS_USER
       )
       .then((response) => {
         if (response.status === 200) {
