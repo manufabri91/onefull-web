@@ -14,10 +14,13 @@ import CityContext from '../../CityContext';
 const useStyles = makeStyles((theme) => ({
   paper: {
     position: 'absolute',
-    width: '30%',
+    width: '90%',
     backgroundColor: theme.palette.background.paper,
     boxShadow: theme.shadows[5],
     padding: theme.spacing(2, 4, 3),
+    [theme.breakpoints.up('md')]: {
+      width: '30vw',
+    },
   },
 }));
 
