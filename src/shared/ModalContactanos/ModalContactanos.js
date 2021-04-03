@@ -8,6 +8,7 @@ import {
   Button,
 } from '@material-ui/core';
 import CheckCircleIcon from '@material-ui/icons/CheckCircle';
+import emailjs from 'emailjs-com';
 import CityContext from '../../CityContext';
 
 const useStyles = makeStyles((theme) => ({
@@ -21,9 +22,13 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const ModalContactanos = ({ open, handleClose, plan }) => {
+  const emailJSUser = `${process.env.REACT_APP_EMAIL_JS_USER}`;
+  const emailJSTemplate = `${process.env.REACT_APP_EMAIL_JS_TEMPLATE}`;
+  const emailJSService = `${process.env.REACT_APP_EMAIL_JS_SERVICE}`;
   const classes = useStyles();
   const { selectedCity } = useContext(CityContext);
   const [contactData, setContactData] = useState({});
+  const [sending, setSending] = useState(false);
   const [sentForm, setSentForm] = useState(false);
   const handleFirstNameChange = (e) => {
     setContactData({ ...contactData, firstName: e.target.value });
@@ -34,11 +39,34 @@ const ModalContactanos = ({ open, handleClose, plan }) => {
   const handlePhoneChange = (e) => {
     setContactData({ ...contactData, phone: e.target.value });
   };
+  const handleMailChange = (e) => {
+    setContactData({ ...contactData, email: e.target.value });
+  };
   const handleSubmit = (e) => {
     e.preventDefault();
+    setSending(true);
     const mailBody = `${contactData.firstName} ${contactData.lastName} solicita el servicio ${plan} en ${selectedCity.name}.\nContactarlo al ${contactData.phone}.`;
-    console.log(mailBody);
-    setSentForm(true);
+
+    emailjs
+      .send(
+        emailJSService,
+        emailJSTemplate,
+        {
+          firstName: contactData.firstName,
+          lastName: contactData.lastName,
+          email: contactData.email,
+          city: selectedCity.name,
+          mailBody,
+        },
+        emailJSUser
+      )
+      .then((response) => {
+        if (response.status === 200) {
+          setSentForm(true);
+        } else {
+        }
+      })
+      .finally(() => setSending(false));
   };
   return (
     <Modal
@@ -91,13 +119,23 @@ const ModalContactanos = ({ open, handleClose, plan }) => {
                 />
               </Grid>
               <Grid item xs={12}>
+                <TextField
+                  required
+                  label='Email'
+                  type='email'
+                  fullWidth
+                  onChange={handleMailChange}
+                />
+              </Grid>
+              <Grid item xs={12}>
                 <Button
                   variant='contained'
                   color='primary'
                   fullWidth
                   type='submit'
+                  disabled={sending}
                 >
-                  Enviar
+                  {sending ? 'Enviando pedido' : 'Enviar'}
                 </Button>
               </Grid>
             </Grid>
